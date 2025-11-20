@@ -1,7 +1,6 @@
 import os
 
 def create_project_structure():
-    """Создает структуру папок проекта"""
     
     # Основные директории
     directories = [
@@ -27,7 +26,6 @@ def create_project_structure():
     # Создаем директории
     for directory in directories:
         os.makedirs(directory, exist_ok=True)
-        print(f"✓ Создана папка: {directory}")
     
     # Создаем файлы
     for folder, file_list in files.items():
@@ -50,12 +48,9 @@ tqdm>=4.64.0
 jupyter>=1.0.0
 """)
                 elif file == 'README.md':
-                    f.write("# Классификация промоторных последовательностей кур\n\nПроект по биониформатике...")
+                    f.write("# Классификация промоторных последовательностей Gallus gallus")
                 elif file.endswith('.py') and file != '__init__.py':
                     f.write(f'"""\nМодуль для {file.replace(".py", "")}\n"""\n\n')
-            print(f"✓ Создан файл: {file_path}")
-    
-    print("\n🎉 Структура проекта создана!")
 
 if __name__ == "__main__":
     create_project_structure()
