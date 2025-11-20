@@ -1,0 +1,4 @@
+https://epd.expasy.org/epd/G_gallus/G_gallus_database.php?db=G_gallus - Eukaryotic Promoter Database (EPD) для chicken
+https://epd.expasy.org/ftp/epdnew/G_gallus/001/db/ - промоторы для скачивания
+https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000002315.4/ - FASTA chicken
+https://github.com/jerryji1993/DNABERT?tab=Apache-2.0-1-ov-file - DNABERT
