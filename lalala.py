@@ -1,3 +1,5 @@
+#Гипотетический план
+
 epd_sequences = load_epd()
 random_genomic_sequences = generate_negative_set()
 
