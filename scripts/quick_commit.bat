@@ -1,10 +1,4 @@
 :: File: scripts/quick_commit.bat
-:: Usage:
-::   scripts\quick_commit.bat
-::   scripts\quick_commit.bat "your commit message"
-:: Description:
-::   Stages all changes, prompts for a commit message if needed, creates a commit, and pushes to the current branch.
-
 @echo off
 setlocal enabledelayedexpansion
 
