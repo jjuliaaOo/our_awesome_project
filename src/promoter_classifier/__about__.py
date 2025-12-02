@@ -1,0 +1,5 @@
+__title__ = "promoter_classifier"
+__description__ = "Promoter vs non-promoter DNA sequence classification project."
+__version__ = "0.0.1"
+__author__ = "Julia Tretyakova, Daria Polushina, Anna Mavricheva"
+__author_email__ = "juliatretyakova@yandex.ru"
