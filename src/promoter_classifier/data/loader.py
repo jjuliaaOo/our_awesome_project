@@ -82,3 +82,40 @@ def is_valid_sequence(seq: str) -> bool:
         True if sequence contains only A/C/G/T, False otherwise
     """
     return all(char in 'ACGT' for char in seq.upper())
+
+
+def load_plain_sequences(path: Union[str, Path], clean: bool = True) -> List[str]:
+    """
+    Load DNA sequences from a plain text file, one sequence per line.
+
+    - Ignore empty lines.
+    - Strip whitespace from each line.
+    - Convert sequences to uppercase.
+    - If `clean` is True, use `clean_sequence()` to keep only A/C/G/T.
+
+    Args:
+        path: Path to the plain text file.
+        clean: Whether to apply `clean_sequence()` to each sequence.
+
+    Returns:
+        List of processed sequences.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+    """
+    path = Path(path)
+    
+    if not path.exists():
+        raise FileNotFoundError(f"File not found: {path}")
+    
+    sequences = []
+    with open(path, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:  # Skip empty lines
+                seq = line.upper()
+                if clean:
+                    seq = clean_sequence(seq)
+                sequences.append(seq)
+    
+    return sequences

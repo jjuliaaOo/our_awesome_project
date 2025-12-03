@@ -9,6 +9,7 @@ from promoter_classifier.data import (
     EPDDatasetPaths,
     load_fasta,
     load_promoter_table,
+    load_plain_sequences,
     clean_sequence,
     is_valid_sequence,
 )
@@ -154,3 +155,38 @@ def test_epd_dataset_paths_without_metadata(tmp_path):
     assert paths.promoters_path == promoters_path
     assert paths.negatives_path == negatives_path
     assert paths.metadata_path is None
+
+
+def test_load_plain_sequences_basic(tmp_path):
+    """Test load_plain_sequences function with a simple text file."""
+    # Create a temporary text file
+    text_content = "acgtn\n\nACGT\nxxxacgtYYY"
+    
+    text_file = tmp_path / "test.txt"
+    text_file.write_text(text_content)
+    
+    # Load sequences with cleaning
+    sequences = load_plain_sequences(text_file, clean=True)
+    
+    # Check results
+    assert isinstance(sequences, list)
+    assert len(sequences) == 3  # Empty line should be ignored
+    assert sequences[0] == "ACGT"  # "acgtn" -> "ACGT" (cleaned)
+    assert sequences[1] == "ACGT"  # "ACGT" -> "ACGT" (no change)
+    assert sequences[2] == "ACGT"  # "xxxacgtYYY" -> "ACGT" (cleaned)
+    
+    # Load sequences without cleaning
+    sequences_uncleaned = load_plain_sequences(text_file, clean=False)
+    
+    # Check results
+    assert isinstance(sequences_uncleaned, list)
+    assert len(sequences_uncleaned) == 3  # Empty line should be ignored
+    assert sequences_uncleaned[0] == "ACGTN"  # "acgtn" -> "ACGTN" (only uppercased)
+    assert sequences_uncleaned[1] == "ACGT"   # "ACGT" -> "ACGT" (no change)
+    assert sequences_uncleaned[2] == "XXXACGTYYY"  # "xxxacgtYYY" -> "XXXACGTYYY" (only uppercased)
+
+
+def test_load_plain_sequences_file_not_found():
+    """Test that load_plain_sequences raises FileNotFoundError for nonexistent files."""
+    with pytest.raises(FileNotFoundError):
+        load_plain_sequences("nonexistent_file.txt")
